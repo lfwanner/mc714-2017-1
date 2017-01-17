@@ -1,0 +1,4 @@
+*.DS_Store
+vm/.vagrant/
+vm/ubuntu-xenial-16.04*
+code/*
