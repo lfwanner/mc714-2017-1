@@ -14,10 +14,10 @@ mkdir dinero
 cd dinero
 wget --progress=bar:force ftp://ftp.cs.wisc.edu/markhill/DineroIV/d4-7.tar.gz
 wget --progress=bar:force http://www.ece.uah.edu/~lacasa/sbc/programs/dinero4sbc.tgz
-tar xzf d4-7.tar.gz 
+tar xzf d4-7.tar.gz
 cd d4-7/
 tar xzf ../dinero4sbc.tgz
-./configure 
+./configure
 make
 cd
 echo PATH=\$PATH:$BASEDIR/dinero/d4-7/ >> $HOMEDIR/.profile
@@ -46,10 +46,10 @@ cd ArchC-2.4.1/
 make
 make install
 echo source $ARCHCDIR/etc/env.sh >> $HOMEDIR/.profile
-	
+
 cd $BASEDIR
 wget --progress=bar:force http://archc.lsc.ic.unicamp.br/downloads/Tools/mips/archc_mips_toolchain_20141215_64bit.tar.bz2
-tar -jxf archc_mips_toolchain_20141215_64bit.tar.bz2 
+tar -jxf archc_mips_toolchain_20141215_64bit.tar.bz2
 rm -f archc_mips_toolchain_20141215_64bit.tar.bz2
 echo export PATH=$BASEDIR/mips-newlib-elf/bin:\$PATH >> $HOMEDIR/.profile
 
@@ -59,14 +59,20 @@ rm -rf src
 export BENCHMARKDIR=$HOMEDIR/benchmarks
 mkdir $BENCHMARKDIR
 cd $BENCHMARKDIR
-wget --progress=bar:force http://archc.lsc.ic.unicamp.br/downloads/Bench/MipsMibench.tar.bz2 
-tar xjf MipsMibench.tar.bz2 
+wget --progress=bar:force http://archc.lsc.ic.unicamp.br/downloads/Bench/MipsMibench.tar.bz2
+tar xjf MipsMibench.tar.bz2
 rm -f MipsMibench.tar.bz2
 
 cd $BENCHMARKDIR
 mkdir traces
 cd traces
 wget --progress=bar:force -r -nH -nd -np -R index.html* http://www.ece.uah.edu/~lacasa/sbc/traces/
+for f in *.tar; do
+  d=`basename $f .tar`
+  mkdir $d
+  (cd $d && tar xf ../$f)
+done
+rm *tar
 
 export CODEDIR=/home/ubuntu/code
 
@@ -84,9 +90,3 @@ mv mips-2.4.0/* .
 rm -rf mips-2.4.0/
 acsim mips.ac -abi
 make
-
-
-
-
-
-
