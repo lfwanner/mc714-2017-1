@@ -37,10 +37,8 @@ make install
 cd $BASEDIR
 export ARCHCDIR=$BASEDIR/archc
 cd src
-wget --progress=bar:force https://github.com/ArchC/ArchC/archive/v2.4.1.tar.gz
-tar xzf v2.4.1.tar.gz
-rm -f v2.4.1.tar.gz
-cd ArchC-2.4.1/
+git clone https://github.com/ArchC/ArchC.git
+cd ArchC/
 ./autogen.sh
 ./configure --prefix=$ARCHCDIR --with-systemc=$SYSTEMCDIR
 make
@@ -77,16 +75,12 @@ rm *tar
 export CODEDIR=/home/ubuntu/code
 
 mkdir $CODEDIR/apps
-
 source $HOMEDIR/.profile
-export PLATFORMDIR=$CODEDIR/platform
+export PLATFORMDIR=$CODEDIR/platforms
 mkdir $PLATFORMDIR
-cd $PLATFORMDIR
-mkdir -p processors/mips
-cd processors/mips
-wget --progress=bar:force https://github.com/ArchC/mips/archive/v2.4.0.tar.gz
-tar -xvf v2.4.0.tar.gz
-mv mips-2.4.0/* .
-rm -rf mips-2.4.0/
-acsim mips.ac -abi
-make
+
+#export LD_LIBRARY_PATH="$SYSTEMCDIR/lib:$LD_LIBRARY_PATH"
+#export PKG_CONFIG_PATH="$SYSTEMCDIR/lib/pkgconfig:$PKG_CONFIG_PATH"
+
+#export LD_LIBRARY_PATH="/home/ubuntu/tools/systemc/lib:$LD_LIBRARY_PATH"
+#export PKG_CONFIG_PATH="/home/ubuntu/tools/systemc/systemc/lib/pkgconfig:$PKG_CONFIG_PATH"
